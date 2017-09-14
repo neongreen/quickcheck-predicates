@@ -26,8 +26,9 @@ source-repository head
 library
   exposed-modules:
     Misc.QC
-    Data.Maybe.QC
     Data.Either.QC
+    Data.Ix.QC
+    Data.Maybe.QC
   build-depends:       QuickCheck,
                        base >=4.8 && <5,
                        base-prelude
