@@ -9,15 +9,17 @@ where
 import BasePrelude hiding (isJust, isNothing)
 import Test.QuickCheck
 
+import Misc.QC
+
 
 isJust :: Maybe a -> Property
 isJust = \case
-  Just _  -> property True
-  Nothing -> counterexample "expected Just\n\
-                            \     got Nothing" False
+  Just _  -> success
+  Nothing -> failure "expected Just\n\
+                     \     got Nothing"
 
 isNothing :: Show a => Maybe a -> Property
 isNothing = \case
-  Just a  -> counterexample ("expected Nothing\n\
-                             \     got " <> show (Just a)) False
-  Nothing -> property True
+  Nothing -> success
+  Just a  -> failure $ "expected Nothing\n\
+                       \     got " <> show (Just a)

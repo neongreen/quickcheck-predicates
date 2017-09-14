@@ -24,9 +24,9 @@ source-repository head
   location:            git://github.com/aelve/quickcheck-predicates.git
 
 library
-  exposed-modules:     Data.Maybe.QC
-  -- other-modules:       
-  -- other-extensions:    
+  exposed-modules:
+    Misc.QC
+    Data.Maybe.QC
   build-depends:       QuickCheck,
                        base >=4.8 && <5,
                        base-prelude
