@@ -50,6 +50,8 @@ success = property True
 -- Prelude
 ----------------------------------------------------------------------------
 
+infix 4 ==, /=, >, <, >=, <=
+
 (==) :: (Show a, Eq a) => a -> a -> Property
 (==) a b
   | a Data.Eq.== b = success
