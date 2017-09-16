@@ -5,8 +5,8 @@ module QC.Base
   failure,
   
   -- * "Prelude"
-  (==),
-  (/=),
+  (==), (/=),
+  (>), (<), (>=), (<=),
   
   -- * "Data.Ix"
   inRange,
@@ -24,7 +24,7 @@ where
 
 import BasePrelude
   -- classes
-  ( Show(..), Eq, Ix
+  ( Show(..), Eq, Ord, Ix
   -- types
   , Bool(..), Either(..), Maybe(..), String
   -- functions
@@ -32,6 +32,7 @@ import BasePrelude
 
 import Test.QuickCheck
 import qualified Data.Eq
+import qualified Data.Ord
 import qualified Data.Ix
 
 
@@ -53,16 +54,48 @@ success = property True
 (==) a b
   | a Data.Eq.== b = success
   | otherwise      = failure $
-      "expected two equal values, got different values\n" <>
-      "value 1: " <> show a <> "\n" <>
-      "value 2: " <> show b
+      "expected a == b, but got different values\n" <>
+      "a: " <> show a <> "\n" <>
+      "b: " <> show b
 
 (/=) :: (Show a, Eq a) => a -> a -> Property
 (/=) a b
   | a Data.Eq./= b = success
   | otherwise      = failure $
-      "expected two different values, got equal values\n" <>
-      "value 1 & 2: " <> show a
+      "expected a /= b, but got equal values\n" <>
+      "a, b: " <> show a
+
+(>) :: (Show a, Ord a) => a -> a -> Property
+(>) a b
+  | a Data.Ord.> b = success
+  | otherwise      = failure $
+      "expected a > b\n" <>
+      "a: " <> show a <> "\n" <>
+      "b: " <> show b
+
+(<) :: (Show a, Ord a) => a -> a -> Property
+(<) a b
+  | a Data.Ord.< b = success
+  | otherwise      = failure $
+      "expected a < b\n" <>
+      "a: " <> show a <> "\n" <>
+      "b: " <> show b
+
+(>=) :: (Show a, Ord a) => a -> a -> Property
+(>=) a b
+  | a Data.Ord.>= b = success
+  | otherwise       = failure $
+      "expected a >= b\n" <>
+      "a: " <> show a <> "\n" <>
+      "b: " <> show b
+
+(<=) :: (Show a, Ord a) => a -> a -> Property
+(<=) a b
+  | a Data.Ord.<= b = success
+  | otherwise       = failure $
+      "expected a <= b\n" <>
+      "a: " <> show a <> "\n" <>
+      "b: " <> show b
 
 ----------------------------------------------------------------------------
 -- Data.Ix
