@@ -31,9 +31,9 @@ import BasePrelude
   , ($), (<>), otherwise )
 
 import Test.QuickCheck
-import qualified Data.Eq
-import qualified Data.Ord
-import qualified Data.Ix
+import qualified Data.Eq       as Eq
+import qualified Data.Ord      as Ord
+import qualified Data.Ix       as Ix
 
 
 ----------------------------------------------------------------------------
@@ -54,47 +54,47 @@ infix 4 ==, /=, >, <, >=, <=
 
 (==) :: (Show a, Eq a) => a -> a -> Property
 (==) a b
-  | a Data.Eq.== b = success
-  | otherwise      = failure $
+  | a Eq.== b = success
+  | otherwise = failure $
       "expected a == b, but got different values\n" <>
       "a: " <> show a <> "\n" <>
       "b: " <> show b
 
 (/=) :: (Show a, Eq a) => a -> a -> Property
 (/=) a b
-  | a Data.Eq./= b = success
-  | otherwise      = failure $
+  | a Eq./= b = success
+  | otherwise = failure $
       "expected a /= b, but got equal values\n" <>
       "a, b: " <> show a
 
 (>) :: (Show a, Ord a) => a -> a -> Property
 (>) a b
-  | a Data.Ord.> b = success
-  | otherwise      = failure $
+  | a Ord.> b = success
+  | otherwise = failure $
       "expected a > b\n" <>
       "a: " <> show a <> "\n" <>
       "b: " <> show b
 
 (<) :: (Show a, Ord a) => a -> a -> Property
 (<) a b
-  | a Data.Ord.< b = success
-  | otherwise      = failure $
+  | a Ord.< b = success
+  | otherwise = failure $
       "expected a < b\n" <>
       "a: " <> show a <> "\n" <>
       "b: " <> show b
 
 (>=) :: (Show a, Ord a) => a -> a -> Property
 (>=) a b
-  | a Data.Ord.>= b = success
-  | otherwise       = failure $
+  | a Ord.>= b = success
+  | otherwise  = failure $
       "expected a >= b\n" <>
       "a: " <> show a <> "\n" <>
       "b: " <> show b
 
 (<=) :: (Show a, Ord a) => a -> a -> Property
 (<=) a b
-  | a Data.Ord.<= b = success
-  | otherwise       = failure $
+  | a Ord.<= b = success
+  | otherwise  = failure $
       "expected a <= b\n" <>
       "a: " <> show a <> "\n" <>
       "b: " <> show b
@@ -105,8 +105,8 @@ infix 4 ==, /=, >, <, >=, <=
 
 inRange :: (Ix a, Show a) => (a, a) -> a -> Property
 inRange rng a
-  | Data.Ix.inRange rng a = success
-  | otherwise = failure $
+  | Ix.inRange rng a = success
+  | otherwise        = failure $
       "expected " <> show a <> " to be in range " <> show rng
 
 ----------------------------------------------------------------------------
