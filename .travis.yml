@@ -84,7 +84,7 @@ script:
    else echo "Not building with installed constraints"; fi
 
  # build & run tests, build benchmarks
- - cabal new-build -w ${HC} ${TEST} ${BENCH} all
+ - cabal new-build --ghc-options=-Werror -w ${HC} ${TEST} ${BENCH} all
 
  # haddock
  - rm -rf ./dist-newstyle
